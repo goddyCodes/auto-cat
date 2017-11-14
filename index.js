@@ -9,6 +9,9 @@ client.on('ready', () => {
 let prefix = "?";
 
 client.on('message', msg => {
+	if (!msg.guild.channels.find("name", "mod-log")) return;
+	if (msg.author.bot) return;
+	
 	if (msg.content.startsWith(prefix + 'ping')) {
 		msg.channel.send("Pinging...").then(sent => {
 			sent.edit(`Pong! - Time Taken: ${sent.createdTimestamp - msg.createdTimestamp}ms`)
