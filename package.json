@@ -1,0 +1,14 @@
+{
+  "name": "autocat",
+  "version": "0.0.0",
+  "description": "automod bot",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "goddy#8210",
+  "license": "MIT",
+  "dependencies": {
+    "discord.js": "^11.2.1"
+  }
+}
