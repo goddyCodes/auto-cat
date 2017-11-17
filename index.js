@@ -45,7 +45,7 @@ client.on('message', msg => {
 			return msg.reply(`This user cannot be banned.`);
 		}
 
-		userToBan.ban(reason)
+		userToBan.ban(`[Responsible Mod]: ${msg.author.tag} [Ban reason]: ` + reason)
 		msg.channel.send(`${userToBan.user.tag} was successfully banned. :hammer:`)
 		logChannel.send('', {
 			embed: {
@@ -55,7 +55,7 @@ client.on('message', msg => {
 					icon_url: msg.author.avatarURL
 				},
 				url: '',
-				description: `**Action:** Ban\n**User:** ${userToBan.user.tag} (${userToBan.id})\n**Reason:** ${reason}`,
+				description: `**Action:** Ban\n**User:** ${userToBan.user.tag} (${userToBan.id})\n**Reason:** ${reason || "No reason specified"}`,
 				timestamp: new Date(),
 			}
 		})
@@ -88,7 +88,7 @@ client.on('message', msg => {
 			return msg.reply(`This user cannot be kicked.`);
 		}
 
-		userToKick.kick(reason)
+		userToKick.kick(`[Responsible Mod]: ${msg.author.tag} [Kick reason]: ` + reason)
 		msg.channel.send(`${userToKick.user.tag} was successfully kicked. :hammer:`)
 		logChannel.send('', {
 			embed: {
@@ -98,7 +98,7 @@ client.on('message', msg => {
 					icon_url: msg.author.avatarURL
 				},
 				url: '',
-				description: `**Action:** Kick\n**User:** ${userToKick.user.tag} (${userToKick.id})\n**Reason:** ${reason}`,
+				description: `**Action:** Kick\n**User:** ${userToKick.user.tag} (${userToKick.id})\n**Reason:** ${reason || "No reason specified"}`,
 				timestamp: new Date(),
 			}
 		})
@@ -108,10 +108,94 @@ client.on('message', msg => {
     	msg.channel.send(`Hello. I'm the main moderation bot for **Catbot's Guild**.`)
     	const embed = new Discord.RichEmbed()
     	.addField(`General`, `\`?ping\``)
-    	.addField(`Moderation`, `\`?ban [user] <reason>\`, \`?kick [user] <reason>\``)
+    	.addField(`Moderation`, `\`?ban [user] <reason>\`, \`?kick [user] <reason>\`, \`?mute [user] <reason>\`, \`?unmute [user] <reason>\``)
     	.setFooter(`NOTE: square brackets ([]) mean necessary and angle brackets (<>) mean optional.`)
 
     	msg.channel.send({embed})
+    }
+
+    if (msg.content.startsWith(prefix + 'mute')) {
+    	let userToMute = msg.mentions.members.first()
+    	let logChannel = msg.guild.channels.find("name", "mod-log")
+		let reason = msg.content.split(' ').slice(2).join(' ')
+		let mutedRole = msg.guild.roles.find("name", "Muted")
+
+        if (!msg.member.roles.has("378780370532827136")) {
+			return msg.reply(`I'm sorry, ${msg.author.username}, but you are unable to use this command.`);
+		} else if (!msg.guild.me.hasPermission("MANAGE_ROLES")) {
+			return msg.reply(`I cannot execute this command as I have insufficient permissions.`);
+		}
+
+        if (msg.mentions.users.size === 0) {
+			return msg.reply(`Please provide at least **1** user for me to mute.`);
+		}
+
+		if (userToMute.id === msg.author.id) {
+			return msg.reply(`You cannot mute yourself.`);
+		}
+
+		if (userToMute.id === client.user.id) {
+			return msg.reply(`I cannot mute myself.`);
+		}
+
+		if (!userToMute.kickable) {
+			return msg.reply(`This user cannot be muted.`);
+		}
+
+		userToMute.addRole(mutedRole, `[Responsible Mod]: ${msg.author.tag} [Mute reason]: ` + reason)
+		msg.channel.send(`${userToMute.user.tag} was successfully muted. :hammer:`)
+		logChannel.send('', {
+			embed: {
+				color: 0xd3d3d3,
+				author: {
+					name: msg.author.tag, 
+					icon_url: msg.author.avatarURL
+				},
+				url: '',
+				description: `**Action:** Mute\n**User:** ${userToMute.user.tag} (${userToMute.id})\n**Reason:** ${reason || "No reason specified"}`,
+				timestamp: new Date(),
+			}
+		})
+    }
+
+    if (msg.content.startsWith(prefix + 'unmute')) {
+    	let userToUnmute = msg.mentions.members.first()
+    	let logChannel = msg.guild.channels.find("name", "mod-log")
+		let reason = msg.content.split(' ').slice(2).join(' ')
+		let mutedRole = msg.guild.roles.find("name", "Muted")
+
+        if (!msg.member.roles.has("378780370532827136")) {
+			return msg.reply(`I'm sorry, ${msg.author.username}, but you are unable to use this command.`);
+		} else if (!msg.guild.me.hasPermission("MANAGE_ROLES")) {
+			return msg.reply(`I cannot execute this command as I have insufficient permissions.`);
+		}
+
+        if (msg.mentions.users.size === 0) {
+			return msg.reply(`Please provide at least **1** user for me to unmute.`);
+		}
+
+		if (userToUnmute.id === msg.author.id) {
+			return msg.reply(`You cannot unmute yourself. Because the mute command doesn't allow you to mute yourself.`);
+		}
+
+		if (userToUnmute.id === client.user.id) {
+			return msg.reply(`I cannot be muted, therefore, I cannot be unmuted.`);
+		}
+
+		userToUnmute.removeRole(mutedRole, `[Responsible Mod]: ${msg.author.tag} [Unmute reason]: ` + reason)
+		msg.channel.send(`${userToUnmute.user.tag} was successfully unmuted. :hammer:`)
+		logChannel.send('', {
+			embed: {
+				color: 0xd3d3d3,
+				author: {
+					name: msg.author.tag, 
+					icon_url: msg.author.avatarURL
+				},
+				url: '',
+				description: `**Action:** Unmute\n**User:** ${userToUnmute.user.tag} (${userToUnmute.id})\n**Reason:** ${reason || "No reason specified"}`,
+				timestamp: new Date(),
+			}
+		})
     }
 });
 
