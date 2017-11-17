@@ -107,7 +107,6 @@ client.on('message', msg => {
     if (msg.content.startsWith(prefix + 'help')) {
     	msg.channel.send(`Hello. I'm the main moderation bot for **Catbot's Guild**.`)
     	const embed = new Discord.RichEmbed()
-    	.setTitle(`Commands`)
     	.addField(`General`, `\`?ping\``)
     	.addField(`Moderation`, `\`?ban [user] <reason>\`, \`?kick [user] <reason>\``)
     	.setFooter(`NOTE: square brackets ([]) mean necessary and angle brackets (<>) mean optional.`)
