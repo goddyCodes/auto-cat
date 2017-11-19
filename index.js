@@ -197,6 +197,20 @@ client.on('message', msg => {
 			}
 		})
     }
+	
+    /* if (adLinks.some(word => msg.content.includes(word) && !msg.member.roles.some(r => ["Boats", "(other) Bots"].includes(r.name)))) {
+    	let logChannel = msg.guild.channels.find("name", "mod-log")
+    	msg.delete()
+    	msg.reply(`Please do not advertise in this server.`)
+        logChannel.send('', {
+			embed: {
+				color: 0xffb600,
+				url: '',
+				description: `**Advertisement Detected!**\n\n**Action:** Automod\n**User:** ${msg.author.tag} (${msg.author.id})\n**Message Content:** ${msg.content}`,
+				timestamp: new Date(),
+			}
+		})
+    } */
 });
 
 client.login(process.env.BOT_TOKEN);
