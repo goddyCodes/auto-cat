@@ -8,6 +8,8 @@ client.on('ready', () => {
 
 let prefix = "?";
 
+let adLinks = ["discord.gg/", "discord.li/", "discord.io/", "discord.me/", "disco.gg/"]
+
 client.on('message', msg => {
 	if (!msg.guild.channels.find("name", "mod-log")) return;
 	if (msg.author.bot) return;
