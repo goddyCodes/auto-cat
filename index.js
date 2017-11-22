@@ -47,7 +47,7 @@ client.on('message', msg => {
 			return msg.reply(`This user cannot be banned.`);
 		}
 
-		userToBan.ban(`[Responsible Mod]: ${msg.author.tag} [Ban reason]: ` + reason)
+		userToBan.ban(`[Mod]: ${msg.author.tag} [Reason]: ` + reason)
 		msg.channel.send(`${userToBan.user.tag} was successfully banned. :hammer:`)
 		logChannel.send('', {
 			embed: {
@@ -90,7 +90,7 @@ client.on('message', msg => {
 			return msg.reply(`This user cannot be kicked.`);
 		}
 
-		userToKick.kick(`[Responsible Mod]: ${msg.author.tag} [Kick reason]: ` + reason)
+		userToKick.kick(`[Mod]: ${msg.author.tag} [Reason]: ` + reason)
 		msg.channel.send(`${userToKick.user.tag} was successfully kicked. :hammer:`)
 		logChannel.send('', {
 			embed: {
@@ -144,7 +144,7 @@ client.on('message', msg => {
 			return msg.reply(`This user cannot be muted.`);
 		}
 
-		userToMute.addRole(mutedRole, `[Responsible Mod]: ${msg.author.tag} [Mute reason]: ` + reason)
+		userToMute.addRole(mutedRole, `[Mod]: ${msg.author.tag} [Reason]: ` + reason)
 		msg.channel.send(`${userToMute.user.tag} was successfully muted. :hammer:`)
 		logChannel.send('', {
 			embed: {
@@ -184,7 +184,7 @@ client.on('message', msg => {
 			return msg.reply(`I cannot be muted, therefore, I cannot be unmuted.`);
 		}
 
-		userToUnmute.removeRole(mutedRole, `[Responsible Mod]: ${msg.author.tag} [Unmute reason]: ` + reason)
+		userToUnmute.removeRole(mutedRole, `[Mod]: ${msg.author.tag} [Reason]: ` + reason)
 		msg.channel.send(`${userToUnmute.user.tag} was successfully unmuted. :hammer:`)
 		logChannel.send('', {
 			embed: {
@@ -200,6 +200,7 @@ client.on('message', msg => {
 		})
     }
 	
+    // if you'd like to use anti-ads, please uncomment the code below.
     /* if (adLinks.some(word => msg.content.includes(word) && !msg.member.roles.some(r => ["Boats", "(other) Bots"].includes(r.name)))) {
     	let logChannel = msg.guild.channels.find("name", "mod-log")
     	msg.delete()
