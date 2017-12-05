@@ -204,7 +204,7 @@ client.on('message', msg => {
     /* if (adLinks.some(word => msg.content.includes(word) && !msg.member.roles.some(r => ["Boats", "(other) Bots"].includes(r.name)))) {
     	let logChannel = msg.guild.channels.find("name", "mod-log")
     	msg.delete()
-    	msg.reply(`Please do not advertise in this server.`)
+    	msg.reply(`Please do not advertise on this server.`)
         logChannel.send('', {
 			embed: {
 				color: 0xffb600,
