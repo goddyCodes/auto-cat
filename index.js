@@ -207,7 +207,7 @@ client.on('message', msg => {
     	msg.reply(`Please do not advertise on this server.`)
         logChannel.send('', {
 			embed: {
-				color: 0xffb600,
+				color: 0xffff00,
 				url: '',
 				description: `**Advertisement Detected!**\n\n**Action:** Automod\n**User:** ${msg.author.tag} (${msg.author.id})\n**Message Content:** ${msg.content}`,
 				timestamp: new Date(),
