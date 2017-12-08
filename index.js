@@ -226,13 +226,7 @@ client.on('message', msg => {
 		if (userToWarn.id === client.user.id) {
 			return msg.reply(`I cannot warn myself.`);
 		}
-
-		if (!userToWarn.kickable) {
-			return msg.reply(`This user cannot be warned.`);
-		}
-
-		userToWarn.ban(`[Mod]: ${msg.author.tag} [Reason]: ` + reason)
-		msg.channel.send(`${userToWarn.user.tag} was successfully banned. :hammer:`)
+		msg.channel.send(`${userToWarn.user.tag} was successfully warned.`)
 		logChannel.send('', {
 			embed: {
 				color: 0xdbd39d,
