@@ -110,7 +110,7 @@ client.on('message', msg => {
     	msg.channel.send(`Hello. I'm the main moderation bot for **Catbot's Guild**.`)
     	const embed = new Discord.RichEmbed()
     	.addField(`General`, `\`${prefix}ping\``)
-    	.addField(`Moderation`, `\`${prefix}ban [user] <reason>\`\n\`${prefix}kick [user] <reason>\`\n\`${prefix}mute [user] <reason>\`\n\`${prefix}unmute [user] <reason>\`\n\`${prefix}warn [user] <reason>`)
+    	.addField(`Moderation`, `\`${prefix}ban [user] <reason>\`\n\`${prefix}kick [user] <reason>\`\n\`${prefix}mute [user] <reason>\`\n\`${prefix}unmute [user] <reason>\`\n\`${prefix}warn [user] <reason>\``)
     	.setFooter(`NOTE: square brackets ([]) mean necessary and angle brackets (<>) mean optional.`)
 
     	msg.channel.send({embed})
