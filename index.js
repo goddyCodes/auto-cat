@@ -231,7 +231,7 @@ client.on('message', msg => {
 			return msg.reply(`I cannot warn this user.`);
 		}
 		
-		msg.channel.send(`${userToWarn.user.tag} was successfully warned. `);
+		msg.channel.send(`${userToWarn.user.tag} was successfully warned. 🔨`);
 		logChannel.send('', {
 			embed: {
 				color: 0xdbd39d,
