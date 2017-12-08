@@ -48,7 +48,7 @@ client.on('message', msg => {
 		}
 
 		userToBan.ban(`[Mod]: ${msg.author.tag} [Reason]: ` + reason)
-		msg.channel.send(`${userToBan.user.tag} was successfully banned. :hammer:`)
+		msg.channel.send(`${userToBan.user.tag} was successfully banned. 🔨`)
 		logChannel.send('', {
 			embed: {
 				color: 0x6d0000,
@@ -91,7 +91,7 @@ client.on('message', msg => {
 		}
 
 		userToKick.kick(`[Mod]: ${msg.author.tag} [Reason]: ` + reason)
-		msg.channel.send(`${userToKick.user.tag} was successfully kicked. :hammer:`)
+		msg.channel.send(`${userToKick.user.tag} was successfully kicked. 🔨`)
 		logChannel.send('', {
 			embed: {
 				color: 0xffb600,
@@ -119,8 +119,8 @@ client.on('message', msg => {
     if (msg.content.startsWith(prefix + 'mute')) {
     	let userToMute = msg.mentions.members.first()
     	let logChannel = msg.guild.channels.find("name", "mod-log")
-		let reason = msg.content.split(' ').slice(2).join(' ')
-		let mutedRole = msg.guild.roles.find("name", "Muted")
+        let reason = msg.content.split(' ').slice(2).join(' ')
+        let mutedRole = msg.guild.roles.find("name", "Muted")
 
         if (!msg.member.roles.has("378780370532827136")) {
 			return msg.reply(`I'm sorry, ${msg.author.username}, but you are unable to use this command.`);
@@ -149,7 +149,7 @@ client.on('message', msg => {
 		}
 
 		userToMute.addRole(mutedRole, `[Mod]: ${msg.author.tag} [Reason]: ` + reason)
-		msg.channel.send(`${userToMute.user.tag} was successfully muted. :hammer:`)
+		msg.channel.send(`${userToMute.user.tag} was successfully muted. 🔨`)
 		logChannel.send('', {
 			embed: {
 				color: 0xd3d3d3,
@@ -189,7 +189,7 @@ client.on('message', msg => {
 		}
 
 		userToUnmute.removeRole(mutedRole, `[Mod]: ${msg.author.tag} [Reason]: ` + reason)
-		msg.channel.send(`${userToUnmute.user.tag} was successfully unmuted. :hammer:`)
+		msg.channel.send(`${userToUnmute.user.tag} was successfully unmuted. 🔨`)
 		logChannel.send('', {
 			embed: {
 				color: 0xd3d3d3,
