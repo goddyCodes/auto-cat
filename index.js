@@ -110,7 +110,7 @@ client.on('message', msg => {
     	msg.channel.send(`Hello. I'm the main moderation bot for **Catbot's Guild**.`)
     	const embed = new Discord.RichEmbed()
     	.addField(`General`, `\`${prefix}ping\``)
-    	.addField(`Moderation`, `\`${prefix}ban [user] <reason>\`\n\`${prefix}kick [user] <reason>\`\n\`${prefix}mute [user] <reason>\`\n\`${prefix}unmute [user] <reason>\``)
+    	.addField(`Moderation`, `\`${prefix}ban [user] <reason>\`\n\`${prefix}kick [user] <reason>\`\n\`${prefix}mute [user] <reason>\`\n\`${prefix}unmute [user] <reason>\`\n\`${prefix}warn [user] <reason>`)
     	.setFooter(`NOTE: square brackets ([]) mean necessary and angle brackets (<>) mean optional.`)
 
     	msg.channel.send({embed})
@@ -199,6 +199,49 @@ client.on('message', msg => {
 			}
 		})
     }
+	
+    	if (msg.content.startsWith(prefix + 'warn')) {
+		let userToWarn = msg.mentions.members.first()
+		let logChannel = msg.guild.channels.find("name", "mod-log")
+		let reason = msg.content.split(' ').slice(2).join(' ')
+
+		if (!msg.member.roles.has("378780370532827136")) {
+			return msg.reply(`I'm sorry, ${msg.author.username}, but you are unable to use this command.`);
+		} else if (!msg.guild.me.hasPermission("KICK_MEMBERS")) {
+			return msg.reply(`I cannot execute this command as I have insufficient permissions.`);
+		}
+
+		if (msg.mentions.users.size === 0) {
+			return msg.reply(`Please provide at least **1** user for me to warn.`);
+		}
+
+		if (userToWarn.id === msg.author.id) {
+			return msg.reply(`You cannot warn yourself.`);
+		}
+
+		if (userToWarn.id === client.user.id) {
+			return msg.reply(`I cannot warn myself.`);
+		}
+
+		if (!userToWarn.kickable) {
+			return msg.reply(`This user cannot be warned.`);
+		}
+
+		userToWarn.ban(`[Mod]: ${msg.author.tag} [Reason]: ` + reason)
+		msg.channel.send(`${userToWarn.user.tag} was successfully banned. :hammer:`)
+		logChannel.send('', {
+			embed: {
+				color: 0xdbd39d,
+				author: {
+					name: msg.author.tag, 
+					icon_url: msg.author.avatarURL
+				},
+				url: '',
+				description: `**Action:** Warn\n**User:** ${userToWarn.user.tag} (${userToWarn.id})\n**Reason:** ${reason || "No reason specified"}`,
+				timestamp: new Date(),
+			}
+		})
+	}
 	
     // if you'd like to use anti-ads, please uncomment the code below.
     /* if (adLinks.some(word => msg.content.includes(word) && !msg.member.roles.some(r => ["Boats", "(other) Bots"].includes(r.name)))) {
