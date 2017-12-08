@@ -226,7 +226,12 @@ client.on('message', msg => {
 		if (userToWarn.id === client.user.id) {
 			return msg.reply(`I cannot warn myself.`);
 		}
-		msg.channel.send(`${userToWarn.user.tag} was successfully warned.`)
+		
+		if (!userToWarn.kickable) {
+			return msg.reply(`I cannot warn this user.`);
+		}
+		
+		msg.channel.send(`${userToWarn.user.tag} was successfully warned. `);
 		logChannel.send('', {
 			embed: {
 				color: 0xdbd39d,
