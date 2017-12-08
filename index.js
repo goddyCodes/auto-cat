@@ -139,7 +139,11 @@ client.on('message', msg => {
 		if (userToMute.id === client.user.id) {
 			return msg.reply(`I cannot mute myself.`);
 		}
-
+	    
+	       if (userToMute.roles.has("378780091016151041")) {
+			return msg.reply(`You cannot mute those with the Developer role.`);
+	       }
+	    
 		if (!userToMute.kickable) {
 			return msg.reply(`This user cannot be muted.`);
 		}
