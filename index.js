@@ -6,9 +6,8 @@ client.on('ready', () => {
   client.user.setGame(`moderating people who think they can get away with naughty things`);
 });
 
-let prefix = "?";
-
-let adLinks = ["discord.gg/", "discord.li/", "discord.io/", "discord.me/", "disco.gg/"]
+const prefix = "?";
+const adLinks = ["discord.gg/", "discord.li/", "discord.io/", "discord.me/", "disco.gg/"];
 
 client.on('message', msg => {
 	if (!msg.guild.channels.find("name", "mod-log")) return;
